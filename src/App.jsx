@@ -2,14 +2,17 @@ import React, { useState, useEffect } from "react";
 import "./App.css";
 import Heroes from "./Heroes.jsx";
 import Filter from "./Filter.jsx";
+import HeroDetails from "./HeroDetails.jsx"
 
-import backgroundImg from './superhero.jpg';
+import backgroundImg from "./comic.jpg"
 
 function App() {
   const [superhero, setSuperhero] = useState([]);
   const [filteredHeroes, setFilteredHeroes] = useState([]);
   const [filterGender, setFilterGender] = useState("");
   const [filterName, setFilterName] = useState("");
+  const [selectedHero, setSelectedHero]= useState(null);
+  const [isHeroDetailsOpen, setIsHeroDetailsOpen]= useState(false)
 
   // console.log( superhero, filteredHereos, filterGender, filterName)
 
@@ -46,7 +49,18 @@ function App() {
     setFilteredHeroes(superhero);
   };
 
+const handleHeroClick = (hero) => {
+  console.log("Hero clicked:", hero);
+  setSelectedHero(hero);
+  setIsHeroDetailsOpen(true);
+};
 
+const closeHeroDetails= () => {
+setIsHeroDetailsOpen(false);
+setSelectedHero(null);
+
+
+}
 
   return (
     <>
@@ -65,9 +79,17 @@ function App() {
             name={hero.name}
             gender={hero.appearance.gender}
             image={hero.images.sm}
+            onClick={() => handleHeroClick(hero)}
           />
         ))}
       </ul>
+
+      {isHeroDetailsOpen && selectedHero && (
+        <HeroDetails
+        hero={selectedHero}
+        closeHeroDetails= {closeHeroDetails}
+         />
+      )}
     </>
   );
 }

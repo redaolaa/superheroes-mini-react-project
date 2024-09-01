@@ -1,12 +1,12 @@
 import React from "react";
 
-function Heroes ({ name, gender, image}) {
+function Heroes ({ name, gender, image, onClick}) {
 return (
-<li>
-    <img src={image} alt={name} width="50"/>
+<li onClick= {onClick}>
+    <img src={image} alt={name} />
     {name} - {gender}
     </li>
-)
+);
 
 }
 export default Heroes;
